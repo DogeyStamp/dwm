@@ -4,6 +4,8 @@ My build of dwm.
 gaps
 
 swallow
+
+combo
 ## Installation
 Clone the repo.
 

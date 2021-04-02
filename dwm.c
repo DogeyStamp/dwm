@@ -254,6 +254,8 @@ static Client *swallowingclient(Window w);
 static Client *termforwin(const Client *c);
 static pid_t winpid(Window w);
 
+static void keyrelease(XEvent *e);
+
 /* variables */
 static const char broken[] = "broken";
 static char stext[256];
@@ -265,6 +267,7 @@ static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
 static void (*handler[LASTEvent]) (XEvent *) = {
 	[ButtonPress] = buttonpress,
+	[ButtonRelease] = keyrelease,
 	[ClientMessage] = clientmessage,
 	[ConfigureRequest] = configurerequest,
 	[ConfigureNotify] = configurenotify,
@@ -272,6 +275,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 	[EnterNotify] = enternotify,
 	[Expose] = expose,
 	[FocusIn] = focusin,
+	[KeyRelease] = keyrelease,
 	[KeyPress] = keypress,
 	[MappingNotify] = mappingnotify,
 	[MapRequest] = maprequest,
@@ -297,6 +301,13 @@ static xcb_connection_t *xcon;
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
+static int combo = 0;
+
+void
+keyrelease(XEvent *e) {
+	combo = 0;
+}
+
 void
 applyrules(Client *c)
 {
