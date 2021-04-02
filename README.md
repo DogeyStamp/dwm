@@ -3,6 +3,7 @@ My build of dwm.
 ## Patches
 gaps
 
+swallow
 ## Installation
 Clone the repo.
 
