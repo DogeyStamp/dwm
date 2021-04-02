@@ -1,9 +1,8 @@
 # dwm
 My build of dwm.
 ## Patches
-center
+gaps
 
-instant
 ## Installation
 Clone the repo.
 
