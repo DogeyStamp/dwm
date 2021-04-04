@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -25,7 +27,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { " ", " ", " ", " ", " ", " ", " ", " ", " " };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -83,6 +85,16 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *suspendcmd[]  = { "systemctl", "suspend", NULL };
 static const char *browsercmd[]  = { "librewolf", NULL };
+static const char *scrotcmd[]  = {".local/bin/screenshot.sh"};
+static const char *scrotscmd[]  = {".local/bin/screenshot-save.sh"};
+static const char *lockcmd[]  = { "slock" };
+static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
+static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
+static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+static const char *play[] = { "mpc", "toggle",  NULL };
+static const char *next[] = { "mpc", "next",  NULL };
+static const char *prev[] = { "mpc", "prev",  NULL };
+static const char *stopcmd[] = { "mpc", "stop",  NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -90,6 +102,16 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
+	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd } },
+	{ ShiftMask,                    XK_Print,  spawn,          {.v = scrotscmd } },
+	{ 0,                       XF86XK_AudioStop, spawn, {.v = stopcmd } },
+	{ 0,                       XF86XK_AudioNext, spawn, {.v = next } },
+	{ 0,                       XF86XK_AudioPrev, spawn, {.v = prev   } },
+	{ 0,                       XF86XK_AudioPlay, spawn, {.v = play   } },
+    { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+	{ 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
+	{ 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
