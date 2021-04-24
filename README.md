@@ -1,7 +1,7 @@
 # dwm
 My build of dwm.
 ## Patches
-gaps
+gaps (disabled, edit config.def.h to enable them)
 
 swallow
 
