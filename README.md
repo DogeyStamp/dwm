@@ -14,6 +14,8 @@ alpha
 rearrangebar
 
 warp
+
+fakefullscreen
 ## Installation
 Clone the repo.
 
