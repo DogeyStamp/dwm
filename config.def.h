@@ -57,6 +57,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+#include "nextprevtag.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -96,7 +97,6 @@ static const char *suspendcmd[]  = { "systemctl", "suspend", NULL };
 static const char *browsercmd[]  = { "qutebrowser", NULL };
 static const char *scrotcmd[]  = {".local/bin/screenshot.sh"};
 static const char *scrotscmd[]  = {".local/bin/screenshot-save.sh"};
-static const char *lockcmd[]  = { "slock" };
 static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
 static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
 static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
@@ -112,7 +112,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_l,      view_adjacent,  {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_h,      view_adjacent,  {.i = -1 } },
 	{ 0,                            XK_Print,  spawn,          {.v = scrotcmd } },
 	{ ShiftMask,                    XK_Print,  spawn,          {.v = scrotscmd } },
 	{ 0,                       XF86XK_AudioStop, spawn, {.v = stopcmd } },
